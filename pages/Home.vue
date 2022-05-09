@@ -12,7 +12,18 @@
         />
         <button>Search</button>
       </form>
+
       <p v-if="$fetch">{{ cities }}</p>
+      <!-- <showWeather
+        v-if="this.$route.params.index"
+        :displayWeather="cities[this.$route.params.index]"
+      /> -->
+      <!-- <showWeather
+        v-if="cities.length"
+        :displayWeather="cities[cities.length - 1]"
+      /> -->
+
+      <!-- <showError v-if="isError" /> -->
     </main>
 
     <!-- <p v-if="currentWeather">current: {{ currentWeather }}</p> -->
@@ -20,6 +31,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Home",
   // components: { showWeather, showError },
@@ -45,10 +57,18 @@ export default {
 
   // },
   async fetch() {
-    const newWeather = await fetch(
-      `${this.$store.state.url_base}weather?q=${this.query}&units=metric&APPID=${this.$store.state.api_key}`
-    ).then((res) => res.json());
-    await this.cities.push(newWeather);
+    if (this.query !== "") {
+      await this.getWeather();
+    }
+  },
+  methods: {
+    async getWeather() {
+      const data = axios.get(
+        `${this.$store.state.url_base}weather?q=${this.query}&units=metric&APPID=${this.$store.state.api_key}`
+      );
+      const result = await data;
+      this.cities.push(result);
+    },
   },
 };
 </script>

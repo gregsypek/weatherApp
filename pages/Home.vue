@@ -2,17 +2,17 @@
   <div class="home">
     <main>
       <!-- search input -->
-      <form @submit.prevent="fetchWeather" class="search-box">
+      <form @submit.prevent="$fetch" class="search-box">
         <input
           type="text"
           class="search-bar"
           placeholder="Enter city..."
-          v-model="query"
-          @keyup="addNewQuery(query)"
+          v-model.lazy="query"
           required
         />
         <button>Search</button>
       </form>
+      <p v-if="$fetch">{{ cities }}</p>
     </main>
 
     <!-- <p v-if="currentWeather">current: {{ currentWeather }}</p> -->
@@ -26,7 +26,9 @@ export default {
   data() {
     return {
       query: "",
+      cities: [],
     };
+
     // },
     // computed: {
     //   ...mapState(["cities", "newQuery", "currentWeather", "isError"]),
@@ -35,6 +37,18 @@ export default {
     //   ...mapMutations(["addToCities", "addNewQuery"]),
     //   ...mapActions(["fetchWeather"]),
     // },
+  },
+  // computed: {
+  //   cities() {
+  //     return this.$store.state.cities;
+  //   },
+
+  // },
+  async fetch() {
+    const newWeather = await fetch(
+      `${this.$store.state.url_base}weather?q=${this.query}&units=metric&APPID=${this.$store.state.api_key}`
+    ).then((res) => res.json());
+    await this.cities.push(newWeather);
   },
 };
 </script>

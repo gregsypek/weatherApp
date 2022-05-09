@@ -1,19 +1,19 @@
 <template>
   <!-- serach results -->
-  <!-- <div class="weather-wrap" v-if="displayWeather">
+  <div class="weather-wrap" v-if="displayWeather">
     <div class="location-box">
-      <div class="location">{{ displayWeather.name }}</div>
-      <div class="date">{{ dateBuilder }}</div>
+      <div class="location">{{ displayWeather.data.name }}</div>
+      <!-- <div class="date">{{ dateBuilder }}</div> -->
     </div>
     <div class="weather-box">
-      <div class="des">{{ displayWeather.weather[0].description }}</div>
+      <div class="des">{{ displayWeather.data.weather[0].description }}</div>
       <div class="tem">
-        {{ Math.round(displayWeather.main.temp) }}<span>&#8451;</span>
+        {{ Math.round(displayWeather.data.main.temp) }}<span>&#8451;</span>
       </div>
       <p>
         wschód słońca:
         {{
-          new Date(displayWeather.sys.sunrise * 1000).toLocaleTimeString(
+          new Date(displayWeather.data.sys.sunrise * 1000).toLocaleTimeString(
             "pl-PL"
           )
         }}
@@ -21,21 +21,22 @@
       <p>
         zachód słońca:
         {{
-          new Date(displayWeather.sys.sunset * 1000).toLocaleTimeString("pl-PL")
+          new Date(displayWeather.data.sys.sunset * 1000).toLocaleTimeString(
+            "pl-PL"
+          )
         }}
       </p>
     </div>
-  </div> -->
-  <h1>pogoda</h1>
+  </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 export default {
   props: ["displayWeather"],
-  computed: {
-    ...mapGetters(["dateBuilder"]),
-  },
+  // computed: {
+  //   ...mapGetters(["dateBuilder"]),
+  // },
 };
 </script>
 

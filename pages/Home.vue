@@ -18,10 +18,10 @@
         v-if="this.$route.params.index"
         :displayWeather="cities[this.$route.params.index]"
       /> -->
-      <!-- <showWeather
+      <showWeather
         v-if="cities.length"
         :displayWeather="cities[cities.length - 1]"
-      /> -->
+      />
 
       <!-- <showError v-if="isError" /> -->
     </main>

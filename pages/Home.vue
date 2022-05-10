@@ -13,15 +13,14 @@
         <button>Search</button>
       </form>
 
-      <p v-if="$fetch">{{ cities }}</p>
+      <!-- <p v-if="$fetch">{{ cities }}</p> -->
       <!-- <showWeather
         v-if="this.$route.params.index"
         :displayWeather="cities[this.$route.params.index]"
       /> -->
-      <showWeather
-        v-if="cities.length"
-        :displayWeather="cities[cities.length - 1]"
-      />
+      <!-- <showWeather v-if="showWeather" /> -->
+      <showWeather v-if="showWeather" />
+      <p>{{ this.$store.state.weather.cities }}</p>
 
       <!-- <showError v-if="isError" /> -->
     </main>
@@ -31,6 +30,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 import axios from "axios";
 export default {
   name: "Home",
@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       query: "",
-      cities: [],
+      showWeather: false,
     };
 
     // },
@@ -50,24 +50,40 @@ export default {
     //   ...mapActions(["fetchWeather"]),
     // },
   },
-  // computed: {
-  //   cities() {
-  //     return this.$store.state.cities;
-  //   },
-
-  // },
+  computed: {
+    isWeather() {
+      if (this.$store.state.cities.length) {
+        this.showWeather = true;
+      }
+    },
+  },
   async fetch() {
     if (this.query !== "") {
       await this.getWeather();
     }
   },
   methods: {
+    ...mapMutations({
+      add: "weather/add",
+    }),
+    // async getWeather() {
+    //   const data = axios.get(
+    //     `${this.$store.state.url_base}weather?q=${this.query}&units=metric&APPID=${this.$store.state.api_key}`
+    //   );
+    //   const result = await data;
+    //   console.log(result);
+    //   this.$store.commit("add", result);
+    //   // [...this.$store.state.cities, result];
+
+    // },
     async getWeather() {
-      const data = axios.get(
+      const data = await fetch(
         `${this.$store.state.url_base}weather?q=${this.query}&units=metric&APPID=${this.$store.state.api_key}`
       );
-      const result = await data;
-      this.cities.push(result);
+      const result = await data.json();
+      console.log(result);
+      this.$store.commit("weather/add", result);
+      this.showWeather = true;
     },
   },
 };

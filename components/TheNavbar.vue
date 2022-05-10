@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="main-nav">
-      <nuxt-link :to="{ name: 'Home' }">Home</nuxt-link>
+      <nuxt-link :to="{ name: 'index' }">Home</nuxt-link>
       <nuxt-link :to="{ name: 'History' }">History</nuxt-link>
     </nav>
   </div>

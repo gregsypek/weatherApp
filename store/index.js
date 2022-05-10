@@ -9,7 +9,7 @@ export const state = () => ({
 export const getters = {
   dateBuilder(state) {
     const d = new Date();
-    state.date = d;
+    // state.date = d;
     const months = [
       "Styczeń",
       "Luty",

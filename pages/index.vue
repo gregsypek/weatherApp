@@ -31,7 +31,7 @@
 
 <script>
 import { mapMutations } from "vuex";
-import axios from "axios";
+// import axios from "axios";
 export default {
   // name: "Home",
   // components: { showWeather, showError },
@@ -84,6 +84,7 @@ export default {
       console.log(result);
       this.$store.commit("weather/add", result);
       this.showWeather = true;
+      this.query = "";
     },
   },
 };

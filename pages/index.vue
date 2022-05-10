@@ -20,6 +20,10 @@
       /> -->
       <!-- <showWeather v-if="showWeather" /> -->
       <showWeather v-if="showWeather" />
+      <showWeather
+        v-else-if="this.$route.params.index"
+        :displayWeather="getAllWeather[this.$route.params.index]"
+      />
       <!-- <p>{{ this.$store.state.weather.cities }}</p> -->
 
       <!-- <showError v-if="isError" /> -->
@@ -55,6 +59,9 @@ export default {
       if (this.$store.state.cities.length) {
         this.showWeather = true;
       }
+    },
+    getAllWeather() {
+      return this.$store.state.weather.cities;
     },
   },
   async fetch() {

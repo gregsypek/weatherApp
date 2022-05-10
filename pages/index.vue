@@ -81,7 +81,7 @@ export default {
         `${this.$store.state.url_base}weather?q=${this.query}&units=metric&APPID=${this.$store.state.api_key}`
       );
       const result = await data.json();
-      console.log(result);
+      console.log("result", result);
       this.$store.commit("weather/add", result);
       this.showWeather = true;
       this.query = "";

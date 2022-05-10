@@ -1,7 +1,8 @@
 <template>
   <!-- serach results -->
   <div>
-    <div class="weather-wrap" v-for="(weather, index) in weathers" :key="index">
+    <!-- <p>{{ this.$store.state.weather.cities[0] }}</p> -->
+    <!-- <div class="weather-wrap" v-for="(weather, index) in weathers" :key="index">
       <div class="location-box">
         <div class="location">{{ weather.payload.name }}</div>
         <div class="date">{{ dateBuilder }}</div>
@@ -28,6 +29,37 @@
           }}
         </p>
       </div>
+    </div> -->
+    <div class="weather-wrap">
+      <div class="location-box">
+        <div class="location">{{ getLatestWeather.payload.name }}</div>
+        <div class="date">{{ dateBuilder }}</div>
+      </div>
+      <div class="weather-box">
+        <div class="des">
+          {{ getLatestWeather.payload.weather[0].description }}
+        </div>
+        <div class="tem">
+          {{ Math.round(getLatestWeather.payload.main.temp)
+          }}<span>&#8451;</span>
+        </div>
+        <p>
+          wschód słońca:
+          {{
+            new Date(
+              getLatestWeather.payload.sys.sunrise * 1000
+            ).toLocaleTimeString("pl-PL")
+          }}
+        </p>
+        <p>
+          zachód słońca:
+          {{
+            new Date(
+              getLatestWeather.payload.sys.sunset * 1000
+            ).toLocaleTimeString("pl-PL")
+          }}
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -36,16 +68,15 @@
 import { mapGetters } from "vuex";
 export default {
   computed: {
+    // TODO BOTH SYNTAX FOR mapGetters WORKS BUT WHICH ONE IS CORRECT?
     // ...mapGetters(["dateBuilder"]),
     ...mapGetters({
       dateBuilder: "dateBuilder",
     }),
-    // getLatestWeather() {
-    //   const dataObj = this.$store.state.cities.slice(-1)[0];
-    //   console.log(dataObj);
-    // },
-    weathers() {
-      return this.$store.state.weather.cities;
+    getLatestWeather() {
+      return this.$store.state.weather.cities[
+        this.$store.state.weather.cities.length - 1
+      ];
     },
   },
 };

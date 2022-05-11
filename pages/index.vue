@@ -1,6 +1,8 @@
 <template>
   <div class="home">
     <main>
+      <p>{{ this.$store.state.weather.isWeather }}</p>
+      <p>{{ this.$route.params.index }}</p>
       <!-- search input -->
       <form @submit.prevent="$fetch" class="search-box">
         <input
@@ -19,9 +21,9 @@
         :displayWeather="cities[this.$route.params.index]"
       /> -->
       <!-- <showWeather v-if="showWeather" /> -->
-      <showWeather v-if="showWeather" />
+      <showWeather v-if="$store.state.weather.isWeather" />
       <showWeather
-        v-else-if="this.$route.params.index"
+        v-if="this.$route.params.index"
         :displayWeather="getAllWeather[this.$route.params.index]"
       />
       <!-- <p>{{ this.$store.state.weather.cities }}</p> -->
@@ -42,7 +44,7 @@ export default {
   data() {
     return {
       query: "",
-      showWeather: false,
+      // showWeather: false,
     };
 
     // },
@@ -90,8 +92,10 @@ export default {
       const result = await data.json();
       console.log("result", result);
       this.$store.commit("weather/add", result);
-      this.showWeather = true;
-      this.query = "";
+      // this.showWeather = true;
+      this.$store.commit("weather/changeIsWeather", true);
+      console.log(this.$store.state.weather.isWeather);
+      // this.query = "";
     },
   },
 };

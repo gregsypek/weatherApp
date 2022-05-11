@@ -1,5 +1,6 @@
 export const state = () => ({
   cities: [],
+  isWeather: false,
 });
 
 export const mutations = {
@@ -12,6 +13,9 @@ export const mutations = {
   },
   toggleIsError(state, payload) {
     state.isError = payload;
+  },
+  changeIsWeather(state, payload) {
+    state.isWeather = payload;
   },
 
   addNewError(state, payload) {

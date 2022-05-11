@@ -1,8 +1,6 @@
 export const state = () => ({
   api_key: "a9e58a19d0374ddd9a5108b9b5cef1e0",
   url_base: "http://api.openweathermap.org/data/2.5/",
-  isError: false,
-  errorMessage: "",
 });
 export const getters = {
   dateBuilder() {

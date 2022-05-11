@@ -40,16 +40,10 @@ import { mapGetters } from "vuex";
 export default {
   props: ["displayWeather"],
   computed: {
-    // TODO BOTH SYNTAX FOR mapGetters WORKS BUT WHICH ONE IS CORRECT?
-    // ...mapGetters(["dateBuilder"]),
     ...mapGetters({
       dateBuilder: "dateBuilder",
     }),
-    getLatestWeather() {
-      return this.$store.state.weather.cities[
-        this.$store.state.weather.cities.length - 1
-      ];
-    },
+
   },
 };
 </script>

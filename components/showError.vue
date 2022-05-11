@@ -3,14 +3,14 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+// import { mapState, mapActions } from "vuex";
 export default {
-  computed: {
-    ...mapState(["errorMessage"]),
-  },
-  methods: {
-    ...mapActions(["hideError"]),
-  },
+  // computed: {
+  //   ...mapState(["errorMessage"]),
+  // },
+  // methods: {
+  //   ...mapActions(["hideError"]),
+  // },
   mounted() {
     setTimeout(() => {
       this.$store.commit("weather/hideError", false);

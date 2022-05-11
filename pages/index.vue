@@ -17,14 +17,6 @@
         />
         <button>Search</button>
       </form>
-
-      <!-- <p v-if="$fetch">{{ cities }}</p> -->
-      <!-- <showWeather
-        v-if="this.$route.params.index"
-        :displayWeather="cities[this.$route.params.index]"
-      /> -->
-      <!-- <showWeather v-if="showWeather" /> -->
-
       <showWeather
         v-if="this.$route.params.index"
         :displayWeather="
@@ -40,12 +32,7 @@
         "
       />
       <showError v-if="$store.state.weather.isError" />
-      <!-- <p>{{ this.$store.state.weather.cities }}</p> -->
-
-      <!-- <showError v-if="isError" /> -->
     </main>
-
-    <!-- <p v-if="currentWeather">current: {{ currentWeather }}</p> -->
   </div>
 </template>
 
@@ -54,21 +41,11 @@ import { mapMutations, mapState } from "vuex";
 // import axios from "axios";
 export default {
   // name: "Home",
-  // components: { showWeather, showError },
   data() {
     return {
       query: "",
       // showWeather: false,
     };
-
-    // },
-    // computed: {
-    //   ...mapState(["cities", "newQuery", "currentWeather", "isError"]),
-    // },
-    // methods: {
-    //   ...mapMutations(["addToCities", "addNewQuery"]),
-    //   ...mapActions(["fetchWeather"]),
-    // },
   },
   computed: {
     ...mapState(["isError"]),
@@ -91,16 +68,7 @@ export default {
     ...mapMutations({
       add: "weather/add",
     }),
-    // async getWeather() {
-    //   const data = axios.get(
-    //     `${this.$store.state.url_base}weather?q=${this.query}&units=metric&APPID=${this.$store.state.api_key}`
-    //   );
-    //   const result = await data;
-    //   console.log(result);
-    //   this.$store.commit("add", result);
-    //   // [...this.$store.state.cities, result];
 
-    // },
     async getWeather() {
       try {
         const data = await fetch(
@@ -112,14 +80,12 @@ export default {
         const result = await data.json();
         console.log("result", result);
         this.$store.commit("weather/add", result);
-        // this.showWeather = true;
         // this.$store.commit("weather/changeIsWeather", true);
         console.log(this.$store.state.weather.isWeather);
       } catch (err) {
         console.error(err);
         this.$store.commit("weather/addNewError", err);
       }
-
       this.query = "";
     },
   },

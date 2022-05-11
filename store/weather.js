@@ -6,24 +6,19 @@ export const state = () => ({
 });
 
 export const mutations = {
-  add(state, payload) {
+  ADD_WEATHER(state, payload) {
     state.cities.push({ payload });
   },
-  addNewQuery(state, payload) {
-    state.newQuery = payload;
-  },
-  toggleIsError(state, payload) {
-    state.isError = payload;
-  },
-  changeIsWeather(state, payload) {
+
+  TOGGLE_WEATHER(state, payload) {
     state.isWeather = payload;
   },
 
-  addNewError(state, payload) {
+  ADD_ERROR(state, payload) {
     state.isError = true;
     state.errorMessage = payload;
   },
-  hideError(state, payload) {
+  TOGGLE_ERROR(state, payload) {
     state.isError = payload;
   },
 };

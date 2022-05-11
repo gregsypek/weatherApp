@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     ...mapMutations({
-      add: "weather/add",
+      ADD_WEATHER: "weather/ADD_WEATHER",
     }),
 
     async getWeather() {
@@ -79,12 +79,12 @@ export default {
 
         const result = await data.json();
         console.log("result", result);
-        this.$store.commit("weather/add", result);
-        // this.$store.commit("weather/changeIsWeather", true);
+        this.$store.commit("weather/ADD_WEATHER", result);
+        // this.$store.commit("weather/TOGGLE_WEATHER", true);
         console.log(this.$store.state.weather.isWeather);
       } catch (err) {
         console.error(err);
-        this.$store.commit("weather/addNewError", err);
+        this.$store.commit("weather/ADD_ERROR", err);
       }
       this.query = "";
     },

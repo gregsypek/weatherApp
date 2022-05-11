@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     changeIsWeather() {
-      this.$store.commit("weather/changeIsWeather", false);
+      this.$store.commit("weather/TOGGLE_WEATHER", false);
       console.log(this.$store.state.weather.isWeather);
     },
   },

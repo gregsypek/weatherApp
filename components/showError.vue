@@ -9,11 +9,11 @@ export default {
   //   ...mapState(["errorMessage"]),
   // },
   // methods: {
-  //   ...mapActions(["hideError"]),
+  //   ...mapActions(["TOGGLE_ERROR"]),
   // },
   mounted() {
     setTimeout(() => {
-      this.$store.commit("weather/hideError", false);
+      this.$store.commit("weather/TOGGLE_ERROR", false);
     }, 3000);
   },
 };

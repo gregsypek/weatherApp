@@ -5,7 +5,7 @@
       <ul class="history-list">
         <li
           v-for="(city, index) in displayedCities"
-          :key="index"
+          :key="city.payload.id"
           :data-index="index"
         >
           <nuxt-link
@@ -25,9 +25,7 @@
 </template>
 
 <script>
-
 export default {
-
   computed: {
     displayedCities() {
       return this.$store.state.weather.cities;

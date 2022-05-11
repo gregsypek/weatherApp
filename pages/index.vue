@@ -2,11 +2,13 @@
   <div class="home">
     <main>
       <!-- FOR SHOWING WHAT IS WHAT -->
+
       <!-- <p>flag:{{ this.$store.state.weather.isWeather }}</p>
       <p>cities:{{ this.$store.state.weather.cities }}</p>
       <p>cities length:{{ this.$store.state.weather.cities.length }}</p>
       <p>index: {{ this.$route.params.index }}</p>
       <p>isError: {{ this.$store.state.weather.isError }}</p> -->
+
       <!-- search input -->
       <form @submit.prevent="$fetch" class="search-box">
         <input
@@ -36,6 +38,8 @@
 </template>
 
 <script>
+import { nanoid } from "nanoid";
+
 import { mapMutations, mapState } from "vuex";
 // import axios from "axios";
 export default {
@@ -82,6 +86,7 @@ export default {
 
         // console.log(name, description, temp, sunrise, sunset);
         const obj = {
+          id: nanoid(10),
           name,
           description,
           temp,

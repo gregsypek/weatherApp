@@ -1,11 +1,12 @@
 <template>
   <div class="home">
     <main>
-      <p>flag:{{ this.$store.state.weather.isWeather }}</p>
+      <!-- FOR SHOWING WHAT IS WHAT -->
+      <!-- <p>flag:{{ this.$store.state.weather.isWeather }}</p>
       <p>cities:{{ this.$store.state.weather.cities }}</p>
       <p>cities length:{{ this.$store.state.weather.cities.length }}</p>
       <p>index: {{ this.$route.params.index }}</p>
-      <p>isError: {{ this.$store.state.weather.isError }}</p>
+      <p>isError: {{ this.$store.state.weather.isError }}</p> -->
       <!-- search input -->
       <form @submit.prevent="$fetch" class="search-box">
         <input
@@ -42,17 +43,10 @@ export default {
   data() {
     return {
       query: "",
-      // showWeather: false,
     };
   },
   computed: {
     ...mapState(["isError"]),
-
-    isWeather() {
-      if (this.$store.state.cities.length) {
-        this.showWeather = true;
-      }
-    },
     allWeather() {
       return this.$store.state.weather.cities;
     },
@@ -77,10 +71,26 @@ export default {
           throw new Error("There is no weather for your city. Try again!");
 
         const result = await data.json();
-        console.log("result", result);
-        this.$store.commit("weather/ADD_WEATHER", result);
+        // destructuring from object
+        const {
+          name,
+          weather: [{ description }],
+          main: { temp },
+          sys: { sunrise },
+          sys: { sunset },
+        } = result;
+
+        // console.log(name, description, temp, sunrise, sunset);
+        const obj = {
+          name,
+          description,
+          temp,
+          sunrise,
+          sunset,
+        };
+        // console.log("result", result);
+        this.$store.commit("weather/ADD_WEATHER", obj);
         // this.$store.commit("weather/TOGGLE_WEATHER", true);
-        console.log(this.$store.state.weather.isWeather);
       } catch (err) {
         console.error(err);
         this.$store.commit("weather/ADD_ERROR", err);

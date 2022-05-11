@@ -25,16 +25,10 @@
 </template>
 
 <script>
-// import { mapState } from "vuex";
 
 export default {
-  // data() {
-  //   return {
-  //     history: [],
-  //   };
-  // },
+
   computed: {
-    // ...mapState(["cities"]),
     displayedCities() {
       return this.$store.state.weather.cities;
     },

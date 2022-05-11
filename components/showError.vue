@@ -5,12 +5,7 @@
 <script>
 // import { mapState, mapActions } from "vuex";
 export default {
-  // computed: {
-  //   ...mapState(["errorMessage"]),
-  // },
-  // methods: {
-  //   ...mapActions(["TOGGLE_ERROR"]),
-  // },
+
   mounted() {
     setTimeout(() => {
       this.$store.commit("weather/TOGGLE_ERROR", false);

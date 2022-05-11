@@ -8,26 +8,26 @@
       </div>
       <div class="weather-box">
         <div class="des">
-          {{ displayWeather.payload.weather[0].description }}
+          {{ displayWeather.payload.description }}
         </div>
         <div class="tem">
-          {{ Math.round(displayWeather.payload.main.temp) }}<span>&#8451;</span>
+          {{ Math.round(displayWeather.payload.temp) }}<span>&#8451;</span>
         </div>
         <p>
           wschód słońca:
           <!-- time returned from API is in seconds, not miliseconds as we wont here - so * 1000 -->
           {{
-            new Date(
-              displayWeather.payload.sys.sunrise * 1000
-            ).toLocaleTimeString("pl-PL")
+            new Date(displayWeather.payload.sunrise * 1000).toLocaleTimeString(
+              "pl-PL"
+            )
           }}
         </p>
         <p>
           zachód słońca:
           {{
-            new Date(
-              displayWeather.payload.sys.sunset * 1000
-            ).toLocaleTimeString("pl-PL")
+            new Date(displayWeather.payload.sunset * 1000).toLocaleTimeString(
+              "pl-PL"
+            )
           }}
         </p>
       </div>
@@ -43,7 +43,6 @@ export default {
     ...mapGetters({
       dateBuilder: "dateBuilder",
     }),
-
   },
 };
 </script>

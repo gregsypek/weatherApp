@@ -1,15 +1,12 @@
 <template>
   <div class="history">
     <h1>Historia lokalizacji</h1>
-    <!-- <p>{{ displayedCities }}</p> -->
-    <p>{{ this.$store.state.weather.isWeather }}</p>
     <div>
       <ul class="history-list">
         <li
           v-for="(city, index) in displayedCities"
           :key="index"
           :data-index="index"
-          @click="changeIsWeather"
         >
           <nuxt-link
             :to="{
@@ -42,12 +39,11 @@ export default {
       return this.$store.state.weather.cities;
     },
   },
-  methods: {
-    changeIsWeather() {
-      this.$store.commit("weather/TOGGLE_WEATHER", false);
-      console.log(this.$store.state.weather.isWeather);
-    },
-  },
+  // methods: {
+  //   changeIsWeather() {
+  //     this.$store.commit("weather/TOGGLE_WEATHER", false);
+  //   },
+  // },
 };
 </script>
 

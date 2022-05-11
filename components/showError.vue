@@ -25,7 +25,7 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 3rem;
+  padding: 5rem;
   width: max-content;
   height: max-content;
   background: white;

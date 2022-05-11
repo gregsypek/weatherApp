@@ -17,21 +17,19 @@
         />
         <button>Search</button>
       </form>
-      <showWeather
-        v-if="this.$route.params.index"
-        :displayWeather="
-          this.$store.state.weather.cities[this.$route.params.index]
-        "
-      />
-      <showWeather
-        v-else
-        :displayWeather="
-          this.$store.state.weather.cities[
-            this.$store.state.weather.cities.length - 1
-          ]
-        "
-      />
-      <showError v-if="$store.state.weather.isError" />
+      <div class="weather">
+        <!-- Loading Animation -->
+        <Loading v-if="$fetchState.pending" />
+        <showWeather
+          v-if="this.$route.params.index"
+          :displayWeather="allWeather[this.$route.params.index]"
+        />
+        <showWeather
+          v-else
+          :displayWeather="allWeather[allWeather.length - 1]"
+        />
+        <showError v-if="$store.state.weather.isError" />
+      </div>
     </main>
   </div>
 </template>
@@ -55,10 +53,11 @@ export default {
         this.showWeather = true;
       }
     },
-    getAllWeather() {
+    allWeather() {
       return this.$store.state.weather.cities;
     },
   },
+  fetchDelay: 1000,
   async fetch() {
     if (this.query !== "") {
       await this.getWeather();
@@ -124,5 +123,8 @@ export default {
 .search-box button:hover,
 .search-box button:focus {
   background-color: #9d9d9d;
+}
+.weather {
+  position: relative;
 }
 </style>

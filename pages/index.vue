@@ -1,11 +1,11 @@
 <template>
   <div class="home">
     <main>
-      <p>{{ this.$store.state.weather.isWeather }}</p>
-      <p>{{ this.$route.params.index }}</p>
-      <p>{{ this.$store.state.weather.cities }}</p>
-      <p>{{ this.$store.state.weather.cities.length }}</p>
+      <p>flag:{{ this.$store.state.weather.isWeather }}</p>
+      <p>cities:{{ this.$store.state.weather.cities }}</p>
+      <p>cities length:{{ this.$store.state.weather.cities.length }}</p>
       <p>index: {{ this.$route.params.index }}</p>
+      <p>isError: {{ this.$store.state.weather.isError }}</p>
       <!-- search input -->
       <form @submit.prevent="$fetch" class="search-box">
         <input
@@ -39,6 +39,7 @@
           ]
         "
       />
+      <showError v-if="$store.state.weather.isError" />
       <!-- <p>{{ this.$store.state.weather.cities }}</p> -->
 
       <!-- <showError v-if="isError" /> -->
@@ -49,7 +50,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 // import axios from "axios";
 export default {
   // name: "Home",
@@ -70,6 +71,8 @@ export default {
     // },
   },
   computed: {
+    ...mapState(["isError"]),
+
     isWeather() {
       if (this.$store.state.cities.length) {
         this.showWeather = true;
@@ -99,15 +102,24 @@ export default {
 
     // },
     async getWeather() {
-      const data = await fetch(
-        `${this.$store.state.url_base}weather?q=${this.query}&units=metric&APPID=${this.$store.state.api_key}`
-      );
-      const result = await data.json();
-      console.log("result", result);
-      this.$store.commit("weather/add", result);
-      // this.showWeather = true;
-      // this.$store.commit("weather/changeIsWeather", true);
-      console.log(this.$store.state.weather.isWeather);
+      try {
+        const data = await fetch(
+          `${this.$store.state.url_base}weather?q=${this.query}&units=metric&APPID=${this.$store.state.api_key}`
+        );
+        if (!data.ok)
+          throw new Error("There is no weather for your city. Try again!");
+
+        const result = await data.json();
+        console.log("result", result);
+        this.$store.commit("weather/add", result);
+        // this.showWeather = true;
+        // this.$store.commit("weather/changeIsWeather", true);
+        console.log(this.$store.state.weather.isWeather);
+      } catch (err) {
+        console.error(err);
+        this.$store.commit("weather/addNewError", err);
+      }
+
       this.query = "";
     },
   },

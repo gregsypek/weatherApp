@@ -1,6 +1,8 @@
 export const state = () => ({
   cities: [],
   isWeather: false,
+  isError: false,
+  errorMessage: "",
 });
 
 export const mutations = {
@@ -21,6 +23,9 @@ export const mutations = {
   addNewError(state, payload) {
     state.isError = true;
     state.errorMessage = payload;
+  },
+  hideError(state, payload) {
+    state.isError = payload;
   },
 };
 // Actions can do a number of different things including combining data, fetching data, and running JavaScript logic
@@ -44,9 +49,5 @@ export const actions = {
       // console.error(err)
       context.commit("addNewError", err);
     }
-  },
-
-  hideError(context) {
-    context.commit("toggleIsError", false);
   },
 };

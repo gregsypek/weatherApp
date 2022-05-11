@@ -1,11 +1,7 @@
 <template>
   <!-- serach results -->
   <div>
-    <!-- THERE IS NO PARAM FROM HISTORY -->
-
-    <!-- THERE IS PARAM FROM HISTORY -->
     <div v-if="displayWeather" class="weather-wrap">
-      <p>{{ displayWeather }}</p>
       <div class="location-box">
         <div class="location">{{ displayWeather.payload.name }}</div>
         <div class="date">{{ dateBuilder }}</div>
@@ -31,37 +27,6 @@
           {{
             new Date(
               displayWeather.payload.sys.sunset * 1000
-            ).toLocaleTimeString("pl-PL")
-          }}
-        </p>
-      </div>
-    </div>
-    <div v-else class="weather-wrap">
-      <div class="location-box">
-        <div class="location">{{ getLatestWeather.payload.name }}</div>
-        <div class="date">{{ dateBuilder }}</div>
-      </div>
-      <div class="weather-box">
-        <div class="des">
-          {{ getLatestWeather.payload.weather[0].description }}
-        </div>
-        <div class="tem">
-          {{ Math.round(getLatestWeather.payload.main.temp)
-          }}<span>&#8451;</span>
-        </div>
-        <p>
-          wschód słońca:
-          {{
-            new Date(
-              getLatestWeather.payload.sys.sunrise * 1000
-            ).toLocaleTimeString("pl-PL")
-          }}
-        </p>
-        <p>
-          zachód słońca:
-          {{
-            new Date(
-              getLatestWeather.payload.sys.sunset * 1000
             ).toLocaleTimeString("pl-PL")
           }}
         </p>

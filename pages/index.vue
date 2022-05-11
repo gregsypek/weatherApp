@@ -3,6 +3,9 @@
     <main>
       <p>{{ this.$store.state.weather.isWeather }}</p>
       <p>{{ this.$route.params.index }}</p>
+      <p>{{ this.$store.state.weather.cities }}</p>
+      <p>{{ this.$store.state.weather.cities.length }}</p>
+      <p>index: {{ this.$route.params.index }}</p>
       <!-- search input -->
       <form @submit.prevent="$fetch" class="search-box">
         <input
@@ -21,10 +24,20 @@
         :displayWeather="cities[this.$route.params.index]"
       /> -->
       <!-- <showWeather v-if="showWeather" /> -->
-      <showWeather v-if="$store.state.weather.isWeather" />
+
       <showWeather
         v-if="this.$route.params.index"
-        :displayWeather="getAllWeather[this.$route.params.index]"
+        :displayWeather="
+          this.$store.state.weather.cities[this.$route.params.index]
+        "
+      />
+      <showWeather
+        v-else
+        :displayWeather="
+          this.$store.state.weather.cities[
+            this.$store.state.weather.cities.length - 1
+          ]
+        "
       />
       <!-- <p>{{ this.$store.state.weather.cities }}</p> -->
 
@@ -93,9 +106,9 @@ export default {
       console.log("result", result);
       this.$store.commit("weather/add", result);
       // this.showWeather = true;
-      this.$store.commit("weather/changeIsWeather", true);
+      // this.$store.commit("weather/changeIsWeather", true);
       console.log(this.$store.state.weather.isWeather);
-      // this.query = "";
+      this.query = "";
     },
   },
 };

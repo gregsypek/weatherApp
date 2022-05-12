@@ -1,6 +1,6 @@
 export const state = () => ({
   cities: [],
-  // isWeather: false,
+  isWeather: false,
   isError: false,
   errorMessage: "",
 });
@@ -10,9 +10,9 @@ export const mutations = {
     state.cities.push({ payload });
   },
 
-  // TOGGLE_WEATHER(state, payload) {
-  //   state.isWeather = payload;
-  // },
+  TOGGLE_WEATHER(state, payload) {
+    state.isWeather = payload;
+  },
 
   ADD_ERROR(state, payload) {
     state.isError = true;

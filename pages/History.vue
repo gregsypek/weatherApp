@@ -7,6 +7,7 @@
           v-for="(city, index) in displayedCities"
           :key="city.payload.id"
           :data-index="index"
+          @click="addFlag"
         >
           <nuxt-link
             :to="{
@@ -25,17 +26,23 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+
 export default {
   computed: {
     displayedCities() {
       return this.$store.state.weather.cities;
     },
   },
-  // methods: {
-  //   changeIsWeather() {
-  //     this.$store.commit("weather/TOGGLE_WEATHER", false);
-  //   },
-  // },
+  methods: {
+    ...mapMutations({
+      TOGGLE_WEATHER: "weather/TOGGLE_WEATHER",
+    }),
+    addFlag() {
+      // show weather from history
+      this.$store.commit("weather/TOGGLE_WEATHER", true);
+    },
+  },
 };
 </script>
 

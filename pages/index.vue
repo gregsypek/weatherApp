@@ -2,6 +2,7 @@
   <div class="home">
     <main>
       <!-- FOR SHOWING WHAT IS WHAT -->
+      <!-- this flag is for displaying weather from history -->
 
       <!-- <p>flag:{{ this.$store.state.weather.isWeather }}</p>
       <p>cities:{{ this.$store.state.weather.cities }}</p>
@@ -26,7 +27,9 @@
 
         <!--  0 is falsy value so it cause problem with if statement-->
         <showWeather
-          v-if="this.$route.params.index >= 0 && this.query === ''"
+          v-if="
+            this.$route.params.index >= 0 && this.$store.state.weather.isWeather
+          "
           :displayWeather="allWeather[this.$route.params.index]"
         />
         <showWeather
@@ -97,13 +100,14 @@ export default {
         };
         // console.log("result", result);
         this.$store.commit("weather/ADD_WEATHER", obj);
-        // this.$store.commit("weather/TOGGLE_WEATHER", true);
+        // false means hide weather from history
+        this.$store.commit("weather/TOGGLE_WEATHER", false);
       } catch (err) {
         console.error(err);
         this.$store.commit("weather/ADD_ERROR", err);
       }
 
-      // this.query = "";
+      this.query = "";
     },
   },
 };

@@ -23,8 +23,10 @@
       <div class="weather">
         <!-- Loading Animation -->
         <Loading v-if="$fetchState.pending" />
+
+        <!--  0 is falsy value so it cause problem with if statement-->
         <showWeather
-          v-if="this.$route.params.index >= 0"
+          v-if="this.$route.params.index >= 0 && this.query === ''"
           :displayWeather="allWeather[this.$route.params.index]"
         />
         <showWeather
@@ -47,7 +49,6 @@ export default {
   data() {
     return {
       query: "",
-      index: null,
     };
   },
   computed: {
@@ -60,8 +61,6 @@ export default {
   async fetch() {
     if (this.query !== "") {
       await this.getWeather();
-    } else {
-      this.index = this.$route.params.index;
     }
   },
   methods: {
@@ -103,7 +102,8 @@ export default {
         console.error(err);
         this.$store.commit("weather/ADD_ERROR", err);
       }
-      this.query = "";
+
+      // this.query = "";
     },
   },
 };

@@ -24,7 +24,7 @@
         <!-- Loading Animation -->
         <Loading v-if="$fetchState.pending" />
         <showWeather
-          v-if="this.$route.params.index"
+          v-if="this.$route.params.index >= 0"
           :displayWeather="allWeather[this.$route.params.index]"
         />
         <showWeather
@@ -47,6 +47,7 @@ export default {
   data() {
     return {
       query: "",
+      index: null,
     };
   },
   computed: {
@@ -59,6 +60,8 @@ export default {
   async fetch() {
     if (this.query !== "") {
       await this.getWeather();
+    } else {
+      this.index = this.$route.params.index;
     }
   },
   methods: {

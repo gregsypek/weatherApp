@@ -1,4 +1,18 @@
-# zad2
+# **weatherApp** 
+is an application built for practicing Vue language. You can check current weather by typing city name. There is also a history tab where all checked weather results are saved.
+
+just visit [weather123vue.herokuapp.com](https://weather123vue.herokuapp.com/)!
+
+
+
+### Features
+
+- nice UI
+- no accounts necessary
+- intuitive
+- extensible
+- nuxt storage persistence
+- etc.
 
 ## Build Setup
 

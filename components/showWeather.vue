@@ -4,7 +4,7 @@
     <div v-if="displayWeather" class="weather-wrap">
       <div class="location-box">
         <div class="location">{{ displayWeather.payload.name }}</div>
-        <div class="date">{{ dateBuilder }}</div>
+        <div class="date">{{ !this.$store.state.weather.fromHistory ?  newDateBuilder() :  displayWeather.payload.time }}</div>
       </div>
       <div class="weather-box">
         <div class="des">
@@ -43,6 +43,43 @@ export default {
     ...mapGetters({
       dateBuilder: "dateBuilder",
     }),
+  },
+  methods: {
+    newDateBuilder() {
+      const d = new Date();
+      const months = [
+        "Styczeń",
+        "Luty",
+        "Marzec",
+        "Kwiecień",
+        "Maj",
+        "Czerwiec",
+        "Lipiec",
+        "Sierpień",
+        "Wrzesień",
+        "Październik",
+        "Listopad",
+        "Grudzień",
+      ];
+      const days = [
+        "Niedziela",
+        "Poniedziałek",
+        "Wtorek",
+        "Środa",
+        "Czwartek",
+        "Piątek",
+        "Sobota",
+      ];
+      const day = days[d.getDay()];
+      const date = d.getDate();
+      const month = months[d.getMonth()];
+      const year = d.getFullYear();
+
+      const time = new Date().toLocaleTimeString("pl-PL");
+      console.log("🚀 ~ file: index.js ~ line 37 ~ dateBuilder ~ time", time);
+      return `${day} ${date} ${month} ${year}
+			${time}`;
+    },
   },
 };
 </script>

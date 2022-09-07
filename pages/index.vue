@@ -45,7 +45,7 @@
 <script>
 import { nanoid } from "nanoid";
 
-import { mapMutations, mapState } from "vuex";
+import { mapMutations, mapState, mapGetters } from "vuex";
 // import axios from "axios";
 export default {
   // name: "Home",
@@ -56,10 +56,14 @@ export default {
   },
   computed: {
     ...mapState(["isError"]),
+    ...mapGetters({
+      dateBuilder: "dateBuilder",
+    }),
     allWeather() {
       return this.$store.state.weather.cities;
     },
   },
+
   fetchDelay: 1000,
   async fetch() {
     if (this.query !== "") {
@@ -70,6 +74,41 @@ export default {
     ...mapMutations({
       ADD_WEATHER: "weather/ADD_WEATHER",
     }),
+    newDateBuilder() {
+      const d = new Date();
+      const months = [
+        "Styczeń",
+        "Luty",
+        "Marzec",
+        "Kwiecień",
+        "Maj",
+        "Czerwiec",
+        "Lipiec",
+        "Sierpień",
+        "Wrzesień",
+        "Październik",
+        "Listopad",
+        "Grudzień",
+      ];
+      const days = [
+        "Niedziela",
+        "Poniedziałek",
+        "Wtorek",
+        "Środa",
+        "Czwartek",
+        "Piątek",
+        "Sobota",
+      ];
+      const day = days[d.getDay()];
+      const date = d.getDate();
+      const month = months[d.getMonth()];
+      const year = d.getFullYear();
+
+      const time = new Date().toLocaleTimeString("pl-PL");
+      console.log("🚀 ~ file: index.js ~ line 37 ~ dateBuilder ~ time", time);
+      return `${day} ${date} ${month} ${year}
+			${time}`;
+    },
 
     async getWeather() {
       try {
@@ -80,6 +119,10 @@ export default {
           throw new Error("There is no weather for your city. Try again!");
 
         const result = await data.json();
+
+        const time = this.newDateBuilder();
+        console.log("🚀 ~ file: index.vue ~ line 89 ~ getWeather ~ time", time);
+
         // destructuring from object
         const {
           name,
@@ -97,6 +140,7 @@ export default {
           temp,
           sunrise,
           sunset,
+          time,
         };
         // console.log("result", result);
         this.$store.commit("weather/ADD_WEATHER", obj);
@@ -108,6 +152,7 @@ export default {
       }
 
       this.query = "";
+      this.$store.commit("weather/TOGGLE_HISTORY", false);
     },
   },
 };

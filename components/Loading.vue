@@ -11,7 +11,7 @@ export default {};
 <style >
 .loading {
   position: absolute;
-  top: 10rem;
+  top: 5rem;
   left: 0;
   bottom: 0;
   right: 0;

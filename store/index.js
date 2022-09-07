@@ -33,7 +33,7 @@ export const getters = {
     const month = months[d.getMonth()];
     const year = d.getFullYear();
 
-    const time = d.toLocaleTimeString("pl-PL");
+    const time = new Date().toLocaleTimeString("pl-PL");
     return `${day} ${date} ${month} ${year}
 			${time}`;
   },

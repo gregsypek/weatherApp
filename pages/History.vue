@@ -41,6 +41,7 @@ export default {
     addFlag() {
       // show weather from history
       this.$store.commit("weather/TOGGLE_WEATHER", true);
+      this.$store.commit("weather/TOGGLE_HISTORY", true);
     },
   },
 };

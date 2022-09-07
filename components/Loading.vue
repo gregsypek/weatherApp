@@ -11,12 +11,12 @@ export default {};
 <style >
 .loading {
   position: absolute;
-  top: 0;
+  top: 10rem;
   left: 0;
   bottom: 0;
   right: 0;
   height: 100%;
-  width: 100vh;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;

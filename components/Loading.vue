@@ -16,7 +16,7 @@ export default {};
   bottom: 0;
   right: 0;
   height: 100%;
-  width: 100%;
+  width: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
